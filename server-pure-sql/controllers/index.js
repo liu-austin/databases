@@ -8,18 +8,19 @@ module.exports = {
         if (err) {
           throw err;
         } else {
-          console.log(results);
-          res.json(results);
+          res.send(results);
         }
       });
     }, // a function which handles a get request for all messages
     post: function (req, res) {
-      var params = [req.body.message, req.body.username, req.body.roomname];
-      models.messages.post(params, function(err, results) {
-        if (err) { /* do something */ }
-        res.sendStatus(201);
+      models.messages.post(req, (err, results) => {
+        if (err) {
+          throw err;
+        } else {
+          res.send(results);
+        }
       });
-    }
+    } // a function which handles posting a message to the database
   },
 
   users: {
@@ -29,15 +30,17 @@ module.exports = {
         if (err) {
           throw err;
         } else {
-          res.json(results);
+          res.send(results);
         }
       });
     },
     post: function (req, res) {
-      var params = [req.body.username];
-      models.users.post(params, function(err, results) {
-        if (err) { /* do something */ }
-        res.sendStatus(201);
+      models.users.post(req, (err, results) => {
+        if (err) {
+          throw err;
+        } else {
+          res.send(results);
+        }
       });
     }
   }
